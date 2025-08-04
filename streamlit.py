@@ -14,12 +14,8 @@ import pandas as pd
 
 # === Setup Credential & Connect ke Google Sheets ===
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
-base64_creds = st.secrets["gcp"]["base64_creds"]
 
-# Decode dan konversi ke dict
-creds_dict = json.loads(base64.b64decode(base64_creds).decode("utf-8"))
-
-creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
 client = gspread.authorize(creds)
 
 # # === Buka Spreadsheet ===

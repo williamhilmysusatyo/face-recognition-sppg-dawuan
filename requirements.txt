@@ -6,3 +6,4 @@ pillow
 gspread
 oauth2client
 pandas
+onnxruntime

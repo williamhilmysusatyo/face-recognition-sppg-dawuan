@@ -19,7 +19,7 @@ base64_creds = st.secrets["gcp"]["base64_creds"]
 # Decode dan konversi ke dict
 creds_dict = json.loads(base64.b64decode(base64_creds).decode("utf-8"))
 
-creds = ServiceAccountCredentials.from_json_keyfile_name(creds_dict, scope)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
 # # === Buka Spreadsheet ===

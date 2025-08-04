@@ -6,13 +6,20 @@ from PIL import Image
 import tempfile
 import os
 import gspread
+import json
+import base64
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import pandas as pd
 
 # === Setup Credential & Connect ke Google Sheets ===
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+base64_creds = st.secrets["gcp"]["base64_creds"]
+
+# Decode dan konversi ke dict
+creds_dict = json.loads(base64.b64decode(base64_creds).decode("utf-8"))
+
+creds = ServiceAccountCredentials.from_json_keyfile_name(creds_dict, scope)
 client = gspread.authorize(creds)
 
 # # === Buka Spreadsheet ===

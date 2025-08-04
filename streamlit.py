@@ -6,7 +6,6 @@ from PIL import Image
 import tempfile
 import os
 import gspread
-import json
 import base64
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime

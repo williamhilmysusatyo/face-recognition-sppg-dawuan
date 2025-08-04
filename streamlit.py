@@ -12,6 +12,26 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import pandas as pd
 
+st.title("Login")
+
+# Ambil user-password dari secrets.toml
+USERS = st.secrets["users"]
+
+login_username = st.text_input("Username")
+login_password = st.text_input("Password", type="password")
+login_button = st.button("Login")
+
+if login_button:
+    if login_username in USERS and USERS[login_username] == login_password:
+        st.session_state["authenticated"] = True
+        st.success("Login berhasil!")
+    else:
+        st.error("Username atau password salah.")
+
+# Stop streamlit di sini kalau belum login
+if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
+    st.stop()
+    
 # === Setup Credential & Connect ke Google Sheets ===
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
 
